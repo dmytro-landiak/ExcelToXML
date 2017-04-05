@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<PACKAGE name="Default name">
+  <POSTOBJECT action="normal" description="Прайс-лист поставщика">
+    <Id>PP0000000007</Id>
+    <PP>
+      <SMDOCUMENTS>
+        <ID>0000000007</ID>
+        <DOCTYPE>PP</DOCTYPE>
+        <BORNIN>UoZgZcsuT0O50LCmsuQ2cg==</BORNIN>
+        <CLIENTINDEX>4</CLIENTINDEX>
+        <CREATEDAT>2017-03-29T00:00:00</CREATEDAT>
+        <CURRENCYMULTORDER>0</CURRENCYMULTORDER>
+        <CURRENCYRATE>1</CURRENCYRATE>
+        <CURRENCYTYPE>1</CURRENCYTYPE>
+        <DOCSTATE>1</DOCSTATE>
+        <ISROUBLES>1</ISROUBLES>
+        <OPCODE>-1</OPCODE>
+        <PRICEROUNDMODE>1</PRICEROUNDMODE>
+        <TOTALSUM>0</TOTALSUM>
+        <TOTALSUMCUR>0</TOTALSUMCUR>
+      </SMDOCUMENTS>
+      <SMCOMMONBASES>
+        <ID>0000000007</ID>
+        <DOCTYPE>PP</DOCTYPE>
+        <BASEDOCTYPE>CO</BASEDOCTYPE>
+        <BASEID>0000000002</BASEID>
+      </SMCOMMONBASES>
+      <SMPROVIDERPRICE>
+        <ID>0000000007</ID>
+        <DOCTYPE>PP</DOCTYPE>
+      </SMPROVIDERPRICE>
+    </PP>
+  </POSTOBJECT>
+</PACKAGE>
