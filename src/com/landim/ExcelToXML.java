@@ -13,15 +13,43 @@ import java.util.Iterator;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
+import java.text.DateFormat;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 
 public class ExcelToXML {
 	
 	static XSSFRow row;
+	Element 
+		smspecpp,
+		doc_id,
+		DOCTYPE_smspecpp,
+		specitem,
+		article,
+		barcode,
+		displayitem,
+		iemprice,
+		minquantity,
+		packsize,
+		vatrate,
+		name;
+	Double tmp;
 	
-   public void generateXML(File excelFile)throws Exception {
+   @SuppressWarnings("deprecation")
+public void generateXML(File excelFile)throws Exception {
       try { 
     	  
-    	  
+    	 DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+    	 DateFormat dateFormat2 = new SimpleDateFormat("HH:mm:ss");
+    	 Date today = Calendar.getInstance().getTime();        
+    	 String reportDate1 = dateFormat1.format(today);
+    	 String reportDate2 = dateFormat2.format(today);
+
+    	
          DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
          DocumentBuilder builder = factory.newDocumentBuilder();
          Document doc = builder.newDocument();
@@ -62,7 +90,7 @@ public class ExcelToXML {
  			smdoc.appendChild(clientind);
  			
  			Element createdat = doc.createElement("CREATEDAT");
- 			createdat.appendChild(doc.createTextNode("2017-03-29T00:00:00"));
+ 			createdat.appendChild(doc.createTextNode(reportDate1 + "T" + reportDate2));
  			smdoc.appendChild(createdat);
  			
  			Element CURRENCYMULTORDER = doc.createElement("CURRENCYMULTORDER");
@@ -133,38 +161,87 @@ public class ExcelToXML {
 	 		smprovprice.appendChild(DOCTYPE_smprovprice);
 	 	
 	 		
-	 	/***************CONTINUE HERE*****************************/	
+	 		
  		postobj.appendChild(pp);
- 		
+		
  		FileInputStream fis = new FileInputStream(excelFile);
  			      XSSFWorkbook workbook = new XSSFWorkbook(fis);
  			      XSSFSheet spreadsheet = workbook.getSheetAt(0);
- 			      Iterator <Row> rowIterator = spreadsheet.iterator();
- 			      while (rowIterator.hasNext()) 
- 			      {
- 			         row = (XSSFRow) rowIterator.next();
- 			         Iterator < Cell > cellIterator = row.cellIterator();
- 			         while ( cellIterator.hasNext()) 
- 			         {
- 			            Cell cell = cellIterator.next();
- 			            switch (cell.getCellType()) 
- 			            {
- 			               case Cell.CELL_TYPE_NUMERIC:
- 			               System.out.print( 
- 			               cell.getNumericCellValue() + " \t\t " );
- 			               break;
- 			               case Cell.CELL_TYPE_STRING:
- 			               System.out.print(
- 			               cell.getStringCellValue() + " \t\t " );
- 			               break;
- 			            }
- 			         }
- 			         System.out.println();
+ 			      
+ 			      for (int i = 1; i <= spreadsheet.getLastRowNum(); i++) {
+ 			    	  XSSFRow row = spreadsheet.getRow(i);
+ 			    	  smspecpp = doc.createElement("SMSPECPP");
+ 					  pp.appendChild(smspecpp);
+ 			    	  Iterator < Cell > cellIterator = row.cellIterator();
+ 			    	  	 for (int j = 0; cellIterator.hasNext(); j++){
+ 			    		 Cell cell = cellIterator.next();
+ 			    		 switch (j) {
+  			               case 0:
+  			            	 doc_id = doc.createElement("DOCID");
+  			            	 tmp = row.getCell(j).getNumericCellValue();
+  			            	 doc_id.appendChild(doc.createTextNode(tmp.toString()));
+  			            	 smspecpp.appendChild(doc_id);
+  			            	 
+  			               break;
+  			               case 1:
+  			            	 DOCTYPE_smspecpp = doc.createElement("DOCTYPE");
+  			            	 DOCTYPE_smspecpp.appendChild(doc.createTextNode("PP"));
+  			            	 smspecpp.appendChild(DOCTYPE_smspecpp);
+  			            	 
+  			            	 vatrate = doc.createElement("VATRATE");
+  			            	 vatrate.appendChild(doc.createTextNode("20"));
+  			            	 smspecpp.appendChild(vatrate);
+  			               break;
+  			               case 2:
+  			            	 specitem = doc.createElement("SPECITEM");
+  			            	 tmp = row.getCell(j).getNumericCellValue();
+  			            	 specitem.appendChild(doc.createTextNode(tmp.toString()));
+  			            	 smspecpp.appendChild(specitem);
+  			               break;
+  			               case 3:
+  			            	 article = doc.createElement("ARTICLE");
+  			            	 article.appendChild(doc.createTextNode (row.getCell(j).getStringCellValue()));
+  			            	 smspecpp.appendChild(article);
+  			               break;
+  			               case 4:
+  			            	 barcode = doc.createElement("BARCODE");
+  			            	 tmp = row.getCell(j).getNumericCellValue();
+  			            	 barcode.appendChild(doc.createTextNode(tmp.toString()));
+  			            	 smspecpp.appendChild(barcode);
+  			               break;
+  			               case 5:
+  			            	 displayitem = doc.createElement("DISPLAYITEM");
+  			            	 tmp = row.getCell(j).getNumericCellValue();
+  			            	 displayitem.appendChild(doc.createTextNode(tmp.toString()));
+  			            	 smspecpp.appendChild(displayitem);
+  			               break;
+  			               case 6:
+  			            	 iemprice = doc.createElement("ITEMPRICE");
+			            	 tmp = row.getCell(j).getNumericCellValue();
+			            	 iemprice.appendChild(doc.createTextNode(tmp.toString()));
+			            	 smspecpp.appendChild(iemprice);
+			               break;
+  			               case 7:
+  			            	 minquantity = doc.createElement("MINQUANTITY");
+			            	 tmp = row.getCell(j).getNumericCellValue();
+			            	 minquantity.appendChild(doc.createTextNode(tmp.toString()));
+			            	 smspecpp.appendChild(minquantity);
+			               break;
+  			               case 8:
+  			            	 packsize = doc.createElement("PACKSIZE");
+			            	 tmp = row.getCell(j).getNumericCellValue();
+			            	 packsize.appendChild(doc.createTextNode(tmp.toString()));
+			            	 smspecpp.appendChild(packsize);
+			               break;
+  			             }
+ 			    		 
+ 			    	  }
  			      }
- 			      workbook.close();
- 			      fis.close();
+			      workbook.close();
+			      fis.close();
 
-         
+ 			      
+ 			      
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
  		Transformer transformer = transformerFactory.newTransformer();
  		transformer.setOutputProperty
