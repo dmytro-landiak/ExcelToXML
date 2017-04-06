@@ -176,7 +176,6 @@ public class ExcelToXML {
  		StreamResult result = new StreamResult(new File("Output.xml"));
  		transformer.transform(source, result);
 
- 		System.out.println("Completed!");
       } catch (IOException e) {
          System.out.println("IOException " + e.getMessage());
       } catch (ParserConfigurationException e) {
@@ -187,11 +186,5 @@ public class ExcelToXML {
       } catch (TransformerException e) {
          System.out.println("TransformerException " + e.getMessage());
       }
-   }
-
-   public static void main(String[] argv) throws Exception {
-      ExcelToXML excel = new ExcelToXML();
-      File input = new File("test.xls");
-      excel.generateXML(input);	
    }
 }
