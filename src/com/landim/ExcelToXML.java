@@ -11,14 +11,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.Iterator;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-
 import java.text.DateFormat;
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
+
 
 
 public class ExcelToXML {
@@ -38,8 +35,9 @@ public class ExcelToXML {
 		packsize,
 		vatrate,
 		name;
-	Double tmp, tmp_ID;
-   @SuppressWarnings("deprecation")
+	Long tmp_ID, tmp;
+	Double price;
+
 public void generateXML(File excelFile)throws Exception {
       try {
     	  
@@ -61,11 +59,10 @@ public void generateXML(File excelFile)throws Exception {
 	    	  	 for (int j = 0; cellIterator.hasNext(); j++){
 	    	  		 Cell cell = cellIterator.next();
 	    		 	 if (j == 10){
-	    		 		tmp_ID = row.getCell(j).getNumericCellValue();
+	    		 		tmp_ID = (long)cell.getNumericCellValue();
 	    		 	 }
 	    	  	 }
 	      }
-
          DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
          DocumentBuilder builder = factory.newDocumentBuilder();
          Document doc = builder.newDocument();
@@ -82,7 +79,7 @@ public void generateXML(File excelFile)throws Exception {
  		postobj.setAttribute("action", "normal");
 
  		Element id = doc.createElement("Id");
- 		id.appendChild(doc.createTextNode(tmp_ID.toString()));
+ 		id.appendChild(doc.createTextNode("PP"+tmp_ID.toString()));
  		postobj.appendChild(id);
 
  		Element pp = doc.createElement("PP");
@@ -177,7 +174,6 @@ public void generateXML(File excelFile)throws Exception {
 	 		smprovprice.appendChild(DOCTYPE_smprovprice);
 
  		postobj.appendChild(pp);
-
  			      for (int i = 1; i <= spreadsheet.getLastRowNum(); i++) {
  			    	  XSSFRow row = spreadsheet.getRow(i);
  			    	  smspecpp = doc.createElement("SMSPECPP");
@@ -197,31 +193,31 @@ public void generateXML(File excelFile)throws Exception {
 	  			            	 smspecpp.appendChild(DOCTYPE_smspecpp);
 	  			            	 
 	  			            	 specitem = doc.createElement("SPECITEM");
-	  			            	 tmp = row.getCell(j).getNumericCellValue();
+	  			            	 tmp = (long)cell.getNumericCellValue();
 	  			            	 specitem.appendChild(doc.createTextNode(tmp.toString()));
 	  			            	 smspecpp.appendChild(specitem);
 	  			            	 
 	  			            	 displayitem = doc.createElement("DISPLAYITEM");
-	  			            	 tmp = row.getCell(j).getNumericCellValue();
+	  			            	 tmp = (long)cell.getNumericCellValue();
 	  			            	 displayitem.appendChild(doc.createTextNode(tmp.toString()));
 	  			            	 smspecpp.appendChild(displayitem);
 	  			            	 
 	  			               break;
 	  			               case 1:
 	  			            	 article = doc.createElement("ARTICLE");
-	  			            	 tmp = row.getCell(j).getNumericCellValue();
+	  			            	 tmp = (long)cell.getNumericCellValue();
 	  			            	 article.appendChild(doc.createTextNode(tmp.toString()));
 	  			            	 smspecpp.appendChild(article);
 	  			               break;
 	  			               case 2:
 	  			            	 barcode = doc.createElement("BARCODE");
-	  			            	 tmp = row.getCell(j).getNumericCellValue();
+	  			            	 tmp = (long)cell.getNumericCellValue();
 	  			            	 barcode.appendChild(doc.createTextNode(tmp.toString()));
 	  			            	 smspecpp.appendChild(barcode);
 	  			               break;
 	  			               case 3:
 	  			            	 name = doc.createElement("NAME");
-	  			            	 name.appendChild(doc.createTextNode (row.getCell(j).getStringCellValue()));
+	  			            	 name.appendChild(doc.createTextNode (cell.getStringCellValue()));
 	  			            	 smspecpp.appendChild(name);
 	  			               break;
 	  			               case 4:
@@ -229,13 +225,13 @@ public void generateXML(File excelFile)throws Exception {
 	  			               break;
 	  			               case 5:
 	  			            	 packsize = doc.createElement("PACKSIZE");
-				            	 tmp = row.getCell(j).getNumericCellValue();
+				            	 tmp = (long)cell.getNumericCellValue();
 				            	 packsize.appendChild(doc.createTextNode(tmp.toString()));
 				            	 smspecpp.appendChild(packsize);
 	  			               break;
 	  			               case 6:
 	  			            	 minquantity = doc.createElement("MINQUANTITY");
-				            	 tmp = row.getCell(j).getNumericCellValue();
+				            	 tmp = (long)cell.getNumericCellValue();
 				            	 minquantity.appendChild(doc.createTextNode(tmp.toString()));
 				            	 smspecpp.appendChild(minquantity);
 				               break;
@@ -250,13 +246,13 @@ public void generateXML(File excelFile)throws Exception {
 				               
 	  			               case 9:
 	  			            	 itemprice = doc.createElement("ITEMPRICE");
-				            	 tmp = row.getCell(j).getNumericCellValue();
-				            	 itemprice.appendChild(doc.createTextNode(tmp.toString()));
+				            	 price = cell.getNumericCellValue();
+				            	 itemprice.appendChild(doc.createTextNode(price.toString()));
 				            	 smspecpp.appendChild(itemprice);
 				               break;
 				               
 	  			           case 10:
-	  			        	   	 tmp_ID = row.getCell(j).getNumericCellValue();
+	  			        	   	 tmp_ID = (long)cell.getNumericCellValue();
 				               break;
 	  			             }
  			    	  	 }

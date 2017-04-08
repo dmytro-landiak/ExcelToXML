@@ -12,3 +12,6 @@ output/**
 */.project
 .project
 build/
+.settings/
+bin/
+
