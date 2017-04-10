@@ -194,75 +194,77 @@ public void generateXML(File excelFile)throws Exception {
  		 					 pp.appendChild(smspecpp);
 	 			    	  	 for (int j = 0; cellIterator.hasNext(); j++){
 	 			    	  		 cell = cellIterator.next();
-		 			    		 switch (j) {
-		  			               case 0:
-		  			            	 doc_id = doc.createElement("DOCID");
-		  			            	 doc_id.appendChild(doc.createTextNode(idDoc));
-		  			            	 smspecpp.appendChild(doc_id);
-		  			            	 
-		  			            	 DOCTYPE_smspecpp = doc.createElement("DOCTYPE");
-		  			            	 DOCTYPE_smspecpp.appendChild(doc.createTextNode("PP"));
-		  			            	 smspecpp.appendChild(DOCTYPE_smspecpp);
-		  			            	 
-		  			            	 specitem = doc.createElement("SPECITEM");
-		  			            	 tmp = (long)cell.getNumericCellValue();
-		  			            	 specitem.appendChild(doc.createTextNode(tmp.toString()));
-		  			            	 smspecpp.appendChild(specitem);
-		  			            	 
-		  			            	 displayitem = doc.createElement("DISPLAYITEM");
-		  			            	 tmp = (long)cell.getNumericCellValue();
-		  			            	 displayitem.appendChild(doc.createTextNode(tmp.toString()));
-		  			            	 smspecpp.appendChild(displayitem);
-		  			            	 
-		  			               break;
-		  			               case 1:
-		  			            	 article = doc.createElement("ARTICLE");
-		  			            	 tmp = (long)cell.getNumericCellValue();
-		  			            	 article.appendChild(doc.createTextNode(tmp.toString()));
-		  			            	 smspecpp.appendChild(article);
-		  			               break;
-		  			               case 2:
-		  			            	 barcode = doc.createElement("BARCODE");
-		  			            	 tmp = (long)cell.getNumericCellValue();
-		  			            	 barcode.appendChild(doc.createTextNode(tmp.toString()));
-		  			            	 smspecpp.appendChild(barcode);
-		  			               break;
-		  			               case 3:
-		  			            	 name = doc.createElement("NAME");
-		  			            	 name.appendChild(doc.createTextNode (cell.getStringCellValue()));
-		  			            	 smspecpp.appendChild(name);
-		  			               break;
-		  			               case 4:
-		  			            	 
-		  			               break;
-		  			               case 5:
-		  			            	 packsize = doc.createElement("PACKSIZE");
-					            	 tmp = (long)cell.getNumericCellValue();
-					            	 packsize.appendChild(doc.createTextNode(tmp.toString()));
-					            	 smspecpp.appendChild(packsize);
-		  			               break;
-		  			               case 6:
-		  			            	 minquantity = doc.createElement("MINQUANTITY");
-					            	 tmp = (long)cell.getNumericCellValue();
-					            	 minquantity.appendChild(doc.createTextNode(tmp.toString()));
-					            	 smspecpp.appendChild(minquantity);
-					               break;
-		  			               case 7:
-		  			            	 vatrate = doc.createElement("VATRATE");
-		  			            	 vatrate.appendChild(doc.createTextNode("20"));
-		  			            	 smspecpp.appendChild(vatrate);
-					               break;
-		  			               case 8:
-	
-					               break;
-					               
-		  			               case 9:
-		  			            	 itemprice = doc.createElement("ITEMPRICE");
-					            	 price = cell.getNumericCellValue();
-					            	 itemprice.appendChild(doc.createTextNode(price.toString()));
-					            	 smspecpp.appendChild(itemprice);
-					               break;
-		  			             }
+	 			    	  		 if (cell.getCellType() != Cell.CELL_TYPE_BLANK){
+			 			    		 switch (j) {
+			  			               case 0:
+			  			            	 doc_id = doc.createElement("DOCID");
+			  			            	 doc_id.appendChild(doc.createTextNode(idDoc));
+			  			            	 smspecpp.appendChild(doc_id);
+			  			            	 
+			  			            	 DOCTYPE_smspecpp = doc.createElement("DOCTYPE");
+			  			            	 DOCTYPE_smspecpp.appendChild(doc.createTextNode("PP"));
+			  			            	 smspecpp.appendChild(DOCTYPE_smspecpp);
+			  			            	 
+			  			            	 specitem = doc.createElement("SPECITEM");
+			  			            	 tmp = (long)cell.getNumericCellValue();
+			  			            	 specitem.appendChild(doc.createTextNode(tmp.toString()));
+			  			            	 smspecpp.appendChild(specitem);
+			  			            	 
+			  			            	 displayitem = doc.createElement("DISPLAYITEM");
+			  			            	 tmp = (long)cell.getNumericCellValue();
+			  			            	 displayitem.appendChild(doc.createTextNode(tmp.toString()));
+			  			            	 smspecpp.appendChild(displayitem);
+			  			            	 
+			  			               break;
+			  			               case 1:
+			  			            	 article = doc.createElement("ARTICLE");
+			  			            	 tmp = (long)cell.getNumericCellValue();
+			  			            	 article.appendChild(doc.createTextNode(tmp.toString()));
+			  			            	 smspecpp.appendChild(article);
+			  			               break;
+			  			               case 2:
+			  			            	 barcode = doc.createElement("BARCODE");
+			  			            	 tmp = (long)cell.getNumericCellValue();
+			  			            	 barcode.appendChild(doc.createTextNode(tmp.toString()));
+			  			            	 smspecpp.appendChild(barcode);
+			  			               break;
+			  			               case 3:
+			  			            	 name = doc.createElement("NAME");
+			  			            	 name.appendChild(doc.createTextNode (cell.getStringCellValue()));
+			  			            	 smspecpp.appendChild(name);
+			  			               break;
+			  			               case 4:
+			  			            	 
+			  			               break;
+			  			               case 5:
+			  			            	 packsize = doc.createElement("PACKSIZE");
+						            	 tmp = (long)cell.getNumericCellValue();
+						            	 packsize.appendChild(doc.createTextNode(tmp.toString()));
+						            	 smspecpp.appendChild(packsize);
+			  			               break;
+			  			               case 6:
+			  			            	 minquantity = doc.createElement("MINQUANTITY");
+						            	 tmp = (long)cell.getNumericCellValue();
+						            	 minquantity.appendChild(doc.createTextNode(tmp.toString()));
+						            	 smspecpp.appendChild(minquantity);
+						               break;
+			  			               case 7:
+			  			            	 vatrate = doc.createElement("VATRATE");
+			  			            	 vatrate.appendChild(doc.createTextNode("20"));
+			  			            	 smspecpp.appendChild(vatrate);
+						               break;
+			  			               case 8:
+		
+						               break;
+						               
+			  			               case 9:
+			  			            	 itemprice = doc.createElement("ITEMPRICE");
+						            	 price = cell.getNumericCellValue();
+						            	 itemprice.appendChild(doc.createTextNode(price.toString()));
+						            	 smspecpp.appendChild(itemprice);
+						               break;
+			  			             }
+	 			    	  		 }
 	 			    	  	 }
  			    	     }
  			      }	
